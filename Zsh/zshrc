@@ -1,0 +1,26 @@
+#!/bin/zsh
+
+alias ..="cd .."
+alias dt="cd ~/Desktop"
+alias docs="cd ~/Documents"
+alias la="ls -a"
+
+alias reload="exec ${SHELL} -l"
+
+alias tpmi="~/.tmux/plugins/tpm/bin/install_plugins"
+alias retmux="tmux source-file ~/.tmux.conf"
+
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  exec tmux
+fi
+
+if command -v pfetch &> /dev/null; then
+    pfetch
+fi
+
+if command -v starship &> /dev/null; then
+    eval "$(starship init zsh)"
+fi

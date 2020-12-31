@@ -1,0 +1,76 @@
+
+" General
+filetype off          " Disable filetype detection
+syntax on             " Enable syntax highlighting
+set number            " Line numbers
+set nocompatible      " Disable vi compatibility
+set modelines=0       " Disable modelines
+set encoding=utf-8    " utf-8 encoding
+
+
+" Text
+set nowrap                             " Disable wrap lines
+set linebreak                          " Wrap lines at convenient points
+set list listchars=tab:\ \ ,trail:·    " Visualize tabs and trailing whitespace
+
+
+" Whitespace
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set autoindent
+set noshiftround
+
+
+" Other
+set backspace=indent,eol,start    " Allow backspace in normal mode
+set hidden                        " Enable hidden mode
+set laststatus=2                  " Last status
+set showcmd                       " Show incomplete commands
+set noshowmode                    " Hide the native status bar
+set ttyfast                       " Faster rendering
+
+
+" Search
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmatch
+
+
+" Persistent undo
+if has('persistent_undo') && isdirectory(expand('~').'/.vim/backups')
+  silent !mkdir ~/.vim/backups > /dev/null 2>&1
+  set undodir=~/.vim/backups
+  set undofile
+endif
+
+
+" Plugin management (Vundle)
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'	     " Vundle
+Plugin 'preservim/nerdtree'          " File tree
+Plugin 'Roy-Orbison/nord-vim-256'    " Colorscheme
+Plugin 'kjwon15/vim-transparent'     " Transparent vim
+Plugin 'vim-airline/vim-airline'     " Status bar
+Plugin 'jiangmiao/auto-pairs'        " Auto-closing brackets
+Plugin 'ervandew/supertab'           " Tab for autocompletion
+Plugin 'davidhalter/jedi-vim'        " Python code completion
+call vundle#end()
+filetype plugin indent on
+
+
+" File tree (NERDTree)
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+map <C-b> :NERDTreeToggle<CR>    " Map Control + B to open NERDTree
+
+
+" Appearance
+set t_Co=256
+colorscheme nord    " Set vim colorscheme
+
